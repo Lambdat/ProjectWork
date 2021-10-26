@@ -76,7 +76,7 @@ namespace ProjectWork.Models
             {
                 ris += lastNameConsonanti; //Vengono inserite le prime 2 lettere
                                            //che sono le uniche consonanti del cognome
-                foreach (char lettera in FirstName)
+                foreach (char lettera in LastName)
                 {
                     if (!Consonante(lettera))
                     {
@@ -91,7 +91,7 @@ namespace ProjectWork.Models
             {
                 ris += lastNameConsonanti; //Aggiungiamo la sola è unica consonante trovata
 
-                foreach (char lettera in FirstName)
+                foreach (char lettera in LastName)
                 {
                     if (counter > 2)
                         break;
@@ -170,7 +170,7 @@ namespace ProjectWork.Models
 
             //CALCOLO ANNO
 
-            ris += GetYear().ToString()[2] + GetYear().ToString()[3];
+            ris += GetYear();
 
             //AGGIUNTA LETTERA DEL MESE
 
@@ -178,7 +178,7 @@ namespace ProjectWork.Models
 
             //AGGIUNTA DEL GIORNO DI NASCITA
 
-            ris += GetDay().ToString();
+            ris += GetDay();
 
 
 
@@ -190,7 +190,7 @@ namespace ProjectWork.Models
 
 
 
-
+        //Metodo d'Appoggio per la ricerca di una consonante
         public bool Consonante(char lettera)
         {
             bool ris = false;
@@ -213,63 +213,43 @@ namespace ProjectWork.Models
             return ris;
         }
 
-        public int GetYear()
-        {
-            int ris = 0;
+        //Con un Metodo definito in Lambda Expression otteniamo la stringa relativa all'anno
+        public string GetYear() {
 
-            //Separiamo la Data dall'Orario, poi prendiamo l'anno
-            //separandolo dal resto della data
-            string anno = Dob.ToString().Split("T")[0].Split("-")[0];
+            int anno =Dob.Year;
 
-            ris = int.Parse(anno);
+            string ris= anno.ToString().Substring(3,4);
+
+
+
 
             return ris;
-        }
 
-        public int GetDay()
+        } 
+       
+        public string GetDay()
         {
             int ris = 0;
 
-            //Separiamo la Data dall'Orario, poi prendiamo il giorno
-            //separandolo dal resto della data
-            string giorno = Dob.ToString().Split("T")[0].Split("-")[2];
 
-            ris = int.Parse(giorno);
+          
+            ris = Dob.Day;
 
             switch (Gender.ToLower()) //Nel caso l'Utente fosse di sesso Femminile
             {                         //deve essere aggiunto 40 alla parte corrispondente
                 case "donna":         // il giorno di nascita  
-                    ris += 40;
-                    break;
-
                 case "d":
-                    ris += 40;
-                    break;
-
                 case "femmina":
-                    ris += 40;
-                    break;
-
                 case "f":
-                    ris += 40;
-                    break;
-
                 case "woman":
-                    ris += 40;
-                    break;
-
                 case "w":
-                    ris += 40;
-                    break;
-
                 case "female":
                     ris += 40;
                     break;
+
             }
 
-
-
-            return ris;
+            return ris.ToString();
         }
 
         //Metodo che restituisce la lettera corrispondente al mese di nascita
@@ -340,10 +320,62 @@ namespace ProjectWork.Models
             return ris;
         }
 
+
+        public string GetCadastralCode()
+        {
+
+            string ris = "";
+            string path = "";
+
+
+           path = $@"C:\Users\orefi\Desktop\ProgettiCorso\14 - Quattordicesima Settimana\ProjectWork\Models\CodiciCatastali\{Pob[0].ToString().ToUpper()} - CodiciCatastali.txt";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            }
+
+
+
+
+
+
+            return ris;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
-
-
-
 
 }
 
