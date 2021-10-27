@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 
 namespace ProjectWork.Models
@@ -7,9 +9,19 @@ namespace ProjectWork.Models
     public class User
     {
         //Dati Anagrafici e Recapiti
-        public string Ssn
-        {
-            get => CreateSsn();
+
+        [Key] //Dato che SSN non segue la convenzione EF di avere Id (per generarne la PK)
+        [DatabaseGenerated(DatabaseGeneratedOption.None)] //Mettiamo queste 2 specifiche
+        public string Ssn 
+        {            
+            get => Ssn; 
+            set
+            {
+                if (value.Length == 16)
+                    Ssn = value;
+                else
+                    throw new Exception("Numero di Caratteri Diversi per il Codice Fiscale");
+            } 
         }
 
         //SSN(Codice Fiscale) questa sarà la nostra pk
@@ -26,15 +38,6 @@ namespace ProjectWork.Models
         //Algoritmi ottenutti dall'invio della password
         public byte[] HashedPassword { get; set; }
         public byte[] PasswordSalt { get; set; }
-
-        public User(string firstName, string lastName, DateTime dob, string gender, string pob)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            Dob = dob;
-            Gender = gender;
-            Pob = pob;
-        }
 
 
         /*
@@ -53,7 +56,8 @@ namespace ProjectWork.Models
          */
 
         //Metodo per effettuare il calcolo del CF
-        public string CreateSsn()
+        //è void perché altera lo stato dell'oggetto
+        public void CreateSsn()
         {
             string ris = "";
 
@@ -169,7 +173,7 @@ namespace ProjectWork.Models
 
 
 
-            return ris;
+            Ssn = ris;
 
         }//Fine Metodo Calcolo Codice Fiscale
 

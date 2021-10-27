@@ -42,4 +42,4 @@ TOTALE PARI = 49
 
 --------------------------
 
-SOMMA TOTALE = 146
+SOMMA TOTALE = 146 % 26(Modulo) => Q
