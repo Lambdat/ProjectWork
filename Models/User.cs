@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
-namespace TestCalcoloCF
+namespace ProjectWork.Models
 {
     public class User
     {
@@ -20,6 +21,7 @@ namespace TestCalcoloCF
         public string Address { get; set; } //Indirizzo di Residenza
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+        public List<Post> Posts { get; set; }
 
         //Algoritmi ottenutti dall'invio della password
         public byte[] HashedPassword { get; set; }
