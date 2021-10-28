@@ -1,0 +1,4 @@
+-getall per la homepage
+-get by id per i propri post
+-deletebyId sui propri token
+-update

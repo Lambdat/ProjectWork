@@ -6,12 +6,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectWork.Controllers
 {
+    /*
+    [Authorize]Questo filtro controlla se l'utente è autenticato. In caso contrario, 
+    restituisce il codice di stato HTTP 401 (non autorizzato), 
+    senza richiamare l'azione.
+    */
+     // solo coloro che mostrano di essere autenticati posso usare i metodi 
+    // di questo controller
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class PostsController
     {
         private readonly InterfaceService<Post> _iService;
@@ -21,7 +29,7 @@ namespace ProjectWork.Controllers
             _iService = iService;
         }
 
-        [HttpGet]
+        [HttpGet]        
         public List<Post> GetAll() 
         {
             return _iService.GetAll();
