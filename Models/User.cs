@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
 
 namespace CalcoloCodiceFiscale
@@ -325,7 +324,7 @@ namespace CalcoloCodiceFiscale
         {
 
             string ris = "";
-            string path = @$".\CodiciCatastali\{Pob[0].ToString().ToUpper()} - CodiciCatastali.txt";
+            string path = @$".\Models\CodiciCatastali\{Pob[0].ToString().ToUpper()} - CodiciCatastali.txt";
 
             //Dal Percorso relativo in alto andiamo a prendere a renderlo assoluto(aggiungendo C:/.../)
             //Andiamo a rimpiazzare eventuali righe del percorso assoluto con spazi vuoti
@@ -345,6 +344,7 @@ namespace CalcoloCodiceFiscale
 
                         string[] comuni = riga.Split(";");
                         string[] parole = comuni[1].Split();
+
                         if (parole[0].ToUpper() == Pob.ToUpper())
                         {
                             ris = comuni[0];
