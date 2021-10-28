@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 
-namespace ProjectWork.Models
+namespace CalcoloCodiceFiscale
 {
     public class User
     {
         //Dati Anagrafici e Recapiti
-
-        [Key] //Dato che SSN non segue la convenzione EF di avere Id (per generarne la PK)
-        [DatabaseGenerated(DatabaseGeneratedOption.None)] //Mettiamo queste 2 specifiche
         public string Ssn { get; set; }
-        //SSN(Codice Fiscale) questa sarà la nostra pk
 
+        //SSN(Codice Fiscale) questa sarà la nostra pk
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime Dob { get; set; }
@@ -23,15 +18,25 @@ namespace ProjectWork.Models
         public string Address { get; set; } //Indirizzo di Residenza
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        // public List<Post> Posts { get; set; }
 
         //Algoritmi ottenutti dall'invio della password
         public byte[] HashedPassword { get; set; }
         public byte[] PasswordSalt { get; set; }
 
+        public User(string firstName, string lastName, DateTime dob, string gender, string pob)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Dob = dob;
+            Gender = gender;
+            Pob = pob;
+        }
+
 
         /*
          * 
+         * 
+         *                      ISTRUZIONI PER IL CALCOLO DEL CODICE FISCALE 
          * 
          *  - le prime tre lettere del codice fiscale sono prese dal cognome (solitamente prima, seconda e terza consonante)
             - le seconde tre dal nome (solitamente prima, terza e quarta consonante se il numero di consonanti sono >=3)
@@ -41,11 +46,11 @@ namespace ProjectWork.Models
             - Codice del comune (quattro caratteri)
             - Carattere di controllo, per verificare la correttezza del codice fiscale.
          * 
+       
          * 
          */
 
-        //Metodo per effettuare il calcolo del CF
-        //è void perché altera lo stato dell'oggetto
+        //Metodo per effettuare il calcolo del CF restituisce una stringa
         public string CreateSsn()
         {
             string ris = "";
@@ -162,7 +167,7 @@ namespace ProjectWork.Models
 
 
 
-            return ris;
+            return ris.ToUpper();
 
         }//Fine Metodo Calcolo Codice Fiscale
 
@@ -210,8 +215,8 @@ namespace ProjectWork.Models
 
             int anno = Dob.Year;
 
-            string ris = anno.ToString().Substring(2, 2);
 
+            string ris = anno.ToString().Substring(2, 2);
 
 
 
@@ -222,7 +227,11 @@ namespace ProjectWork.Models
         //Metodo per ottenere il giorno
         public string GetDay()
         {
-            int ris = Dob.Day;
+            int ris = 0;
+
+
+
+            ris = Dob.Day;
 
             switch (Gender.ToLower()) //Nel caso l'Utente fosse di sesso Femminile
             {                         //deve essere aggiunto 40 alla parte corrispondente
@@ -316,12 +325,12 @@ namespace ProjectWork.Models
         {
 
             string ris = "";
-            string path = @$".\Models\CodiciCatastali\{Pob[0].ToString().ToUpper()} - CodiciCatastali.txt";
+            string path = @$".\CodiciCatastali\{Pob[0].ToString().ToUpper()} - CodiciCatastali.txt";
 
             //Dal Percorso relativo in alto andiamo a prendere a renderlo assoluto(aggiungendo C:/.../)
             //Andiamo a rimpiazzare eventuali righe del percorso assoluto con spazi vuoti
             string fullPath = Path.GetFullPath(path).Replace(@"\bin\Debug\net5.0", "");
-            Console.WriteLine(fullPath);
+
 
             if (File.Exists(fullPath))
             {
@@ -335,9 +344,128 @@ namespace ProjectWork.Models
                     {
 
                         string[] comuni = riga.Split(";");
-                        ris = comuni[0];
-                        break;
-
+                        string[] parole = comuni[1].Split();
+                        if (parole[0].ToUpper() == Pob.ToUpper())
+                        {
+                            ris = comuni[0];
+                            break;
+                        }
+                        else if (parole.Length == 3)
+                        {
+                            if (
+                                parole[0].ToUpper() == Pob.ToUpper().Split()[0] &&
+                                parole[1].ToUpper() == Pob.ToUpper().Split()[1]
+                              )
+                            {
+                                ris = comuni[0];
+                                break;
+                            }
+                        }
+                        else if (parole.Length == 4)
+                        {
+                            if (
+                                parole[0].ToUpper() == Pob.ToUpper().Split()[0] &&
+                                parole[1].ToUpper() == Pob.ToUpper().Split()[1] &&
+                                parole[2].ToUpper() == Pob.ToUpper().Split()[2]
+                               )
+                            {
+                                ris = comuni[0];
+                                break;
+                            }
+                        }
+                        else if (parole.Length == 5)
+                        {
+                            if (
+                                parole[0].ToUpper() == Pob.ToUpper().Split()[0] &&
+                                parole[1].ToUpper() == Pob.ToUpper().Split()[1] &&
+                                parole[2].ToUpper() == Pob.ToUpper().Split()[2] &&
+                                parole[3].ToUpper() == Pob.ToUpper().Split()[3]
+                               )
+                            {
+                                ris = comuni[0];
+                                break;
+                            }
+                        }
+                        else if (parole.Length == 6)
+                        {
+                            if (
+                                parole[0].ToUpper() == Pob.ToUpper().Split()[0] &&
+                                parole[1].ToUpper() == Pob.ToUpper().Split()[1] &&
+                                parole[2].ToUpper() == Pob.ToUpper().Split()[2] &&
+                                parole[3].ToUpper() == Pob.ToUpper().Split()[3] &&
+                                parole[4].ToUpper() == Pob.ToUpper().Split()[4]
+                               )
+                            {
+                                ris = comuni[0];
+                                break;
+                            }
+                        }
+                        else if (parole.Length == 7)
+                        {
+                            if (
+                                parole[0].ToUpper() == Pob.ToUpper().Split()[0] &&
+                                parole[1].ToUpper() == Pob.ToUpper().Split()[1] &&
+                                parole[2].ToUpper() == Pob.ToUpper().Split()[2] &&
+                                parole[3].ToUpper() == Pob.ToUpper().Split()[3] &&
+                                parole[4].ToUpper() == Pob.ToUpper().Split()[4] &&
+                                parole[5].ToUpper() == Pob.ToUpper().Split()[5]
+                               )
+                            {
+                                ris = comuni[0];
+                                break;
+                            }
+                        }
+                        else if (parole.Length == 8)
+                        {
+                            if (
+                                parole[0].ToUpper() == Pob.ToUpper().Split()[0] &&
+                                parole[1].ToUpper() == Pob.ToUpper().Split()[1] &&
+                                parole[2].ToUpper() == Pob.ToUpper().Split()[2] &&
+                                parole[3].ToUpper() == Pob.ToUpper().Split()[3] &&
+                                parole[4].ToUpper() == Pob.ToUpper().Split()[4] &&
+                                parole[5].ToUpper() == Pob.ToUpper().Split()[5] &&
+                                parole[6].ToUpper() == Pob.ToUpper().Split()[6]
+                               )
+                            {
+                                ris = comuni[0];
+                                break;
+                            }
+                        }
+                        else if (parole.Length == 9)
+                        {
+                            if (
+                                parole[0].ToUpper() == Pob.ToUpper().Split()[0] &&
+                                parole[1].ToUpper() == Pob.ToUpper().Split()[1] &&
+                                parole[2].ToUpper() == Pob.ToUpper().Split()[2] &&
+                                parole[3].ToUpper() == Pob.ToUpper().Split()[3] &&
+                                parole[4].ToUpper() == Pob.ToUpper().Split()[4] &&
+                                parole[5].ToUpper() == Pob.ToUpper().Split()[5] &&
+                                parole[6].ToUpper() == Pob.ToUpper().Split()[6] &&
+                                parole[7].ToUpper() == Pob.ToUpper().Split()[7]
+                               )
+                            {
+                                ris = comuni[0];
+                                break;
+                            }
+                        }
+                        else if (parole.Length == 10)
+                        {
+                            if (
+                                parole[0].ToUpper() == Pob.ToUpper().Split()[0] &&
+                                parole[1].ToUpper() == Pob.ToUpper().Split()[1] &&
+                                parole[2].ToUpper() == Pob.ToUpper().Split()[2] &&
+                                parole[3].ToUpper() == Pob.ToUpper().Split()[3] &&
+                                parole[4].ToUpper() == Pob.ToUpper().Split()[4] &&
+                                parole[5].ToUpper() == Pob.ToUpper().Split()[5] &&
+                                parole[6].ToUpper() == Pob.ToUpper().Split()[6] &&
+                                parole[7].ToUpper() == Pob.ToUpper().Split()[7] &&
+                                parole[8].ToUpper() == Pob.ToUpper().Split()[8]
+                               )
+                            {
+                                ris = comuni[0];
+                                break;
+                            }
+                        }
                     }
                 }
 
@@ -693,8 +821,7 @@ namespace ProjectWork.Models
 
     }
 
-    public class UserNotFoundException : Exception { }
 
-    public class BadCredentialsException : Exception { }
+
 }
 
