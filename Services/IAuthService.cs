@@ -1,4 +1,5 @@
-﻿using ProjectWork.Models;
+﻿using ProjectWork.DTOs;
+using ProjectWork.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace ProjectWork.Services
 {
     public interface IAuthService
     {
-        bool Registester(User utente, string password);
+        bool Registester(UserRegistrationRequest request);
 
         string Login(string ssn, string password);
 

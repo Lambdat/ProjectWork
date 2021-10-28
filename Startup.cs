@@ -32,7 +32,6 @@ namespace ProjectWork
 
             services.AddControllers();
 
-            services.AddCors();
 
             //Configuration come si legge nella dichiarazione della sua proprietà (di questa classe)
 
@@ -48,6 +47,7 @@ namespace ProjectWork
 
             services.AddScoped<IAuthService, AuthService>();
 
+            services.AddCors();
 
             services.AddSwaggerGen(c =>
             {

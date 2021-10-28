@@ -57,7 +57,7 @@ namespace ProjectWork.Models
 
         //Metodo per effettuare il calcolo del CF
         //è void perché altera lo stato dell'oggetto
-        public void CreateSsn()
+        public string CreateSsn()
         {
             string ris = "";
 
@@ -173,7 +173,7 @@ namespace ProjectWork.Models
 
 
 
-            Ssn = ris;
+            return ris;
 
         }//Fine Metodo Calcolo Codice Fiscale
 
@@ -331,12 +331,12 @@ namespace ProjectWork.Models
         {
 
             string ris = "";
-            string path = @$".\CodiciCatastali\{Pob[0].ToString().ToUpper()} - CodiciCatastali.txt";
+            string path = @$".\Models\CodiciCatastali\{Pob[0].ToString().ToUpper()} - CodiciCatastali.txt";
 
             //Dal Percorso relativo in alto andiamo a prendere a renderlo assoluto(aggiungendo C:/.../)
             //Andiamo a rimpiazzare eventuali righe del percorso assoluto con spazi vuoti
             string fullPath = Path.GetFullPath(path).Replace(@"\bin\Debug\net5.0", "");
-
+            Console.WriteLine(fullPath);
 
             if (File.Exists(fullPath))
             {

@@ -31,7 +31,7 @@ namespace ProjectWork.Controllers
         [HttpPost("signup")]
         public IActionResult Registration([FromBody] UserRegistrationRequest request)
         {
-            if (_service.Registester(request.User, request.Password))
+            if (_service.Registester(request))
             {
                 return Ok();
             }

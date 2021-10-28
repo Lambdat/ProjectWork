@@ -1,4 +1,5 @@
 ﻿using ProjectWork.Data;
+using ProjectWork.DTOs;
 using ProjectWork.Models;
 using System;
 using System.Linq;
@@ -23,31 +24,36 @@ namespace ProjectWork.Services
 
 
         //Metodo per effettuare Registrazione di un nuovo Utente
-        public bool Registester(User utente, string password)
+        public bool Registester(UserRegistrationRequest request)
         {
-            if (UserExists(utente.Ssn))
+            
+            var (hash, salt) = HashPassword(request.Password);
+
+            User u = new User
+            {
+
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Dob = request.Dob,
+                Gender = request.Gender,
+                Pob = request.Pob,
+                Address = request.Address,
+                PhoneNumber = request.PhoneNumber,
+                Email = request.Email,
+                HashedPassword = hash,
+                PasswordSalt = salt,
+                
+
+            };
+
+            u.Ssn=u.CreateSsn();
+
+            if (UserExists(u.Ssn))
             {
                 return false; //Registrazione Non Avvenuta
             }
 
-            var (hash, salt) = HashPassword(password);
-
-
-            _db.Users.Add(
-                new User
-                {
-                    FirstName = utente.FirstName,
-                    LastName = utente.LastName,
-                    Dob = utente.Dob,
-                    Gender = utente.Gender,
-                    Pob = utente.Pob,
-                    Address = utente.Address,
-                    PhoneNumber = utente.PhoneNumber,
-                    Email = utente.Email,
-                    HashedPassword = hash,
-                    PasswordSalt = salt
-
-                });
+            _db.Users.Add(u);
 
             _db.SaveChanges();
 

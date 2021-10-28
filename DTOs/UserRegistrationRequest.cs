@@ -18,7 +18,14 @@ namespace ProjectWork.DTOs
     {
 
 
-        public User User { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime Dob { get; set; }
+        public string Gender { get; set; }
+        public string Pob { get; set; } //Place of Birth
+        public string Address { get; set; } //Indirizzo di Residenza
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
         public string Password { get; set; }
 
 
