@@ -17,7 +17,7 @@ namespace ProjectWork.Models
             get => Ssn; 
             set
             {
-                if (value.Length == 16)
+                if (value.Length == 16) //Facciamo un banale controllo nel setter di questa proprietà
                     Ssn = value;
                 else
                     throw new Exception("Numero di Caratteri Diversi per il Codice Fiscale");
