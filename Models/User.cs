@@ -1,14 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 
-namespace CalcoloCodiceFiscale
+namespace ProjectWork.Models
 {
     public class User
     {
         //Dati Anagrafici e Recapiti
+        [Key]                                                 //Con queste 2 impostazioni racchiuse in [], diciamo di non seguire la convenzione di Entity Framework secondo la quale 
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]    //Come Proprietà rappresentante la Chiave Primaria necessitiamo per forza di un Id nel nome, bensì useremo Ssn (Codice Fiscale)
         public string Ssn { get; set; }
-
         //SSN(Codice Fiscale) questa sarà la nostra pk
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime Dob { get; set; }
@@ -18,19 +23,15 @@ namespace CalcoloCodiceFiscale
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
 
-        //Algoritmi ottenutti dall'invio della password
+        //Algoritmi ottenutti dall'invio della password, la password vera e propria (string per intenderci) sarà presente nella Requesta apposita
         public byte[] HashedPassword { get; set; }
         public byte[] PasswordSalt { get; set; }
 
-        public User(string firstName, string lastName, DateTime dob, string gender, string pob)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            Dob = dob;
-            Gender = gender;
-            Pob = pob;
-        }
+        //Questa sarà la lista di Posts dell'utente in questione (relazione 1-N)
+        public List<Post> Posts { get; set; }
 
+
+        //Non ci serve un metodo costruttore per istanziare un oggetto di questa classe
 
         /*
          * 
@@ -821,7 +822,10 @@ namespace CalcoloCodiceFiscale
 
     }
 
+    //Creiamo delle Classi rappresentanti Eccezioni Custom che estendano la Classe Padre Exception
+    public class UserNotFoundException : Exception { } 
 
+    public class BadCredentialsException : Exception{ }
 
 }
 

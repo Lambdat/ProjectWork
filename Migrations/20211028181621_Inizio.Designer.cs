@@ -9,7 +9,7 @@ using ProjectWork.Data;
 namespace ProjectWork.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211027211644_Inizio")]
+    [Migration("20211028181621_Inizio")]
     partial class Inizio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

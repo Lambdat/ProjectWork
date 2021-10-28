@@ -14,7 +14,7 @@ namespace ProjectWork.Models
         public string ImageUrl { get; set; }
         public DateTime CreatedTime { get; set; }
 
-        //Il seguente campo NON E' chiave esterna.
+        //Il seguente campo E' la chiave esterna.
         //Ci indica l'autore del post
         public string UserSsn { get; set; }
 

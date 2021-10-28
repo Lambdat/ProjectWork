@@ -36,9 +36,11 @@ namespace ProjectWork.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("UserSsn")
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(767)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserSsn");
 
                     b.ToTable("Posts");
                 });
@@ -81,6 +83,18 @@ namespace ProjectWork.Migrations
                     b.HasKey("Ssn");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ProjectWork.Models.Post", b =>
+                {
+                    b.HasOne("ProjectWork.Models.User", null)
+                        .WithMany("Posts")
+                        .HasForeignKey("UserSsn");
+                });
+
+            modelBuilder.Entity("ProjectWork.Models.User", b =>
+                {
+                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }
