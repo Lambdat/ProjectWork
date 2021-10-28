@@ -12,19 +12,9 @@ namespace ProjectWork.Models
 
         [Key] //Dato che SSN non segue la convenzione EF di avere Id (per generarne la PK)
         [DatabaseGenerated(DatabaseGeneratedOption.None)] //Mettiamo queste 2 specifiche
-        public string Ssn 
-        {            
-            get => Ssn; 
-            set
-            {
-                if (value.Length == 16)
-                    Ssn = value;
-                else
-                    throw new Exception("Numero di Caratteri Diversi per il Codice Fiscale");
-            } 
-        }
-
+        public string Ssn { get; set; }
         //SSN(Codice Fiscale) questa sarà la nostra pk
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime Dob { get; set; }
@@ -33,7 +23,7 @@ namespace ProjectWork.Models
         public string Address { get; set; } //Indirizzo di Residenza
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public List<Post> Posts { get; set; }
+        // public List<Post> Posts { get; set; }
 
         //Algoritmi ottenutti dall'invio della password
         public byte[] HashedPassword { get; set; }
@@ -51,7 +41,6 @@ namespace ProjectWork.Models
             - Codice del comune (quattro caratteri)
             - Carattere di controllo, per verificare la correttezza del codice fiscale.
          * 
-       
          * 
          */
 
@@ -233,11 +222,7 @@ namespace ProjectWork.Models
         //Metodo per ottenere il giorno
         public string GetDay()
         {
-            int ris = 0;
-
-
-
-            ris = Dob.Day;
+            int ris = Dob.Day;
 
             switch (Gender.ToLower()) //Nel caso l'Utente fosse di sesso Femminile
             {                         //deve essere aggiunto 40 alla parte corrispondente
@@ -708,7 +693,8 @@ namespace ProjectWork.Models
 
     }
 
+    public class UserNotFoundException : Exception { }
 
-
+    public class BadCredentialsException : Exception { }
 }
 

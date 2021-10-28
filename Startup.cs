@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,12 +8,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ProjectWork.Data;
 using ProjectWork.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectWork
@@ -49,6 +52,21 @@ namespace ProjectWork
 
             services.AddCors();
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opt =>
+                    {
+                        var secret = "Super secret very very long long men pikachu";
+                        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
+                        opt.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = key,
+                            ValidateIssuer = false,
+                            ValidateAudience = false
+                        };
+                    }
+                );
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProjectWork", Version = "v1" });
@@ -67,8 +85,9 @@ namespace ProjectWork
 
             app.UseHttpsRedirection();
 
-
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

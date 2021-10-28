@@ -13,7 +13,6 @@ namespace ProjectWork.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-
         private readonly IAuthService _service;
 
         public AuthController(IAuthService service)
@@ -31,14 +30,26 @@ namespace ProjectWork.Controllers
         [HttpPost("signup")]
         public IActionResult Registration([FromBody] UserRegistrationRequest request)
         {
-            if (_service.Registester(request))
+            if (_service.Register(request))
             {
-                return Ok();
+                return Ok("Registration completed");
             }
-            else
-                return BadRequest();
+            return BadRequest("User already exists");
         }
 
+        [HttpPost("login")]
+        public ActionResult<string> Login([FromBody] UserLoginRequest userLogin)
+        {
+            try
+            {
+                return Ok(_service.Login(userLogin.Ssn, userLogin.Password));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
 
     }
 }

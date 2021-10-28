@@ -16,8 +16,6 @@ namespace ProjectWork.DTOs
     //bensì sarà proprio la password stringa che inserisce
     public class UserRegistrationRequest
     {
-
-
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime Dob { get; set; }
@@ -27,14 +25,5 @@ namespace ProjectWork.DTOs
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string Password { get; set; }
-
-
-
-
-
-
-
-
-
     }
 }
