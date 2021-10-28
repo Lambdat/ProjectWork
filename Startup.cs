@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ProjectWork.Data;
+using ProjectWork.Models;
 using ProjectWork.Services;
 using System;
 using System.Collections.Generic;
@@ -48,7 +49,9 @@ namespace ProjectWork
             // DataContext scritta nel namespace Data
             services.AddDbContext<DataContext>(opt => opt.UseMySQL(parametri));
 
+            //Aggiuniamo con Pattern Dependency Injection le istanze Scoped<singleton>
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<InterfaceService<Post>, PostService>();
 
             services.AddCors();
 
