@@ -10,7 +10,7 @@ namespace ProjectWork.Models
     {
         //Dati Anagrafici e Recapiti
         [Key]                                                 //Con queste 2 impostazioni racchiuse in [], diciamo di non seguire la convenzione di Entity Framework secondo la quale 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]    //Come Proprietà rappresentante la Chiave Primaria necessitiamo per forza di un Id nel nome, bensì useremo Ssn (Codice Fiscale)
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]    //Come Proprietà rappresentante la Chiave Primaria è necessaria per forza di un Id nel nome, bensì useremo Ssn (Codice Fiscale)
         public string Ssn { get; set; }
         //SSN(Codice Fiscale) questa sarà la nostra pk
 
