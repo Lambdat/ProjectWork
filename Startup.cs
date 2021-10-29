@@ -58,7 +58,7 @@ namespace ProjectWork
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
                     {
-                        var secret = "Super secret very very long long men pikachu";
+                        var secret = "Super secret very very long long crowbar";
                         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
                         opt.TokenValidationParameters = new TokenValidationParameters
                         {

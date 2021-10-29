@@ -20,7 +20,7 @@ namespace ProjectWork.Controllers
     [Route("[controller]")]
     [ApiController]
     [Authorize]
-    public class PostsController
+    public class PostsController : ControllerBase
     {
         private readonly InterfaceService<Post> _iService;
 
@@ -42,8 +42,9 @@ namespace ProjectWork.Controllers
         }
 
         [HttpGet]
-        public List<Post> GetAllByUsername([FromBody] string username)
+        public List<Post> GetAllByUsername()
         {
+            var username = this.User.Identity.Name; // vogliamo tutti i post relativi al token abbia questo username
             return _iService.GetAllByUsername(username);
         }
 

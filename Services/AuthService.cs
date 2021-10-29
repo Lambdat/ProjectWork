@@ -47,7 +47,8 @@ namespace ProjectWork.Services
             // Andiamo a definire le parti del payload, che servono ad identificare l'utente
             var claims = new List<Claim>
             {
-                // Così stiamo dicendo che con l ssn identifichiamo univocamente l'utente
+                // Così stiamo dicendo che con l ssn e con lo username identifichiamo univocamente l'utente
+                // Quando generiamo il codice token, esso conterrà queste informazioni               
                 new Claim(ClaimTypes.NameIdentifier, user.Ssn),
                 new Claim(ClaimTypes.Name, user.Username)
             };
