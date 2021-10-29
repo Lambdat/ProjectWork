@@ -14,7 +14,7 @@ namespace ProjectWork.Services
         //Qui di seguito riportiamo le firme dei metodi CRUD e non solo
         public List<T> GetAll();
 
-        public List<T> GetAllByUsername(string username);
+        public List<T> GetAllByUsername(string username); //Tutti i post dell utente con quello username
 
         public T SearchById(int id);
         

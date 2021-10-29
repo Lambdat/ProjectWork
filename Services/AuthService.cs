@@ -110,9 +110,9 @@ namespace ProjectWork.Services
                 return false; //Registrazione Non Avvenuta
             }
 
-            _db.Users.Add(u);
-
-            _db.SaveChanges();
+            _db.Users.Add(u); //Questa è come se fosse l'operazione Create (Crud) di uno User
+                                //invece di farla nel suo service, la facciamo dopo una registrazione
+            _db.SaveChanges();  //effetuata con successo
 
             return true;
 
