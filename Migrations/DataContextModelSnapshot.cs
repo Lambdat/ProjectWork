@@ -80,6 +80,9 @@ namespace ProjectWork.Migrations
                     b.Property<string>("Pob")
                         .HasColumnType("text");
 
+                    b.Property<string>("Username")
+                        .HasColumnType("text");
+
                     b.HasKey("Ssn");
 
                     b.ToTable("Users");

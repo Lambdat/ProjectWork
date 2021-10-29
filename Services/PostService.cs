@@ -1,4 +1,5 @@
-﻿using ProjectWork.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjectWork.Data;
 using ProjectWork.Models;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,17 @@ namespace ProjectWork.Services
             _db = db;
         }
 
+        //Quest sono tutti i post che leggiamo dalla Home Page
         public List<Post> GetAll()
         {
             return _db.Posts.ToList();
         }
 
+
+
         public Post Add(Post item)
         {
+            
             var itemAdded = _db.Posts.Add(item);
 
             _db.SaveChanges();
@@ -38,10 +43,7 @@ namespace ProjectWork.Services
             return itemRemoved.Entity;
         }
 
-     /*   public Post Delete(string ssn)
-        {
-            throw new NotImplementedException();
-        }*/
+
 
 
         public Post SearchById(int id)
@@ -55,23 +57,10 @@ namespace ProjectWork.Services
             return itemFound;
         }
 
-        /* public Post SearchBySsn(string ssn)
-         {
-             throw new NotImplementedException();
-         }*/
 
         //PUT
         public Post UpdateById(Post item)
         {
-            /* var itemExists =SearchById(item.Id);
-
-             if (itemExists is null)
-             {
-                 throw new Exception("Post non trovato con id" + item.Id);
-             }
-             else
-            */
-            
 
             var itemModified = _db.Posts.Update(item);
 
@@ -81,19 +70,34 @@ namespace ProjectWork.Services
         
         }
 
-       /* public Post Put(Post item)
+        public List<Post> GetAllByUsername(string username)
         {
-            var itemAdded = _db.Posts.Update(item);
+            //lo scriviamo sottoforma di Query LINQ
 
-            _db.SaveChanges();
+            /*
+            var ris = from posts in _db.Posts
+                      join utenti in _db.Users on posts.UserSsn equals utenti.Ssn
+                      where utenti.Username == username
+                      select posts;
+            */
 
-            return itemAdded.Entity;
-        }*/
+
+            //Metodo altenativo con Entity Framework
+            var utenteTrovato = _db.Users.FirstOrDefault(utente => utente.Username == username.ToLower());
+
+            if(utenteTrovato is null)
+            {
+                throw new UserNotFoundException();
+            }
+
+            var ris2 = _db.Posts.Where(post => post.UserSsn == utenteTrovato.Ssn).ToList();
 
 
-        /*   public Post UpdateBySsn(string ssn, Post item)
-           {
-               throw new NotImplementedException();
-           }*/
+            return ris2;
+        }
+
+
+
+
     }
 }

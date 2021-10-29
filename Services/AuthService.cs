@@ -22,10 +22,11 @@ namespace ProjectWork.Services
             _db = db;
         }
 
-        //Metodo per effettuare l'accesso
-        public string Login(string ssn, string password)
+        //Metodo per effettuare l'accesso sia Ssn sia o Username
+        public string Login(string ssn, string username, string password)
         {
-            var user = _db.Users.FirstOrDefault(user => user.Ssn == ssn);
+            var user = _db.Users.FirstOrDefault(user => user.Ssn == ssn.ToUpper() || user.Username==username.ToLower());
+
 
             if (user is null)
             {
@@ -46,13 +47,13 @@ namespace ProjectWork.Services
             // Andiamo a definire le parti del payload, che servono ad identificare l'utente
             var claims = new List<Claim>
             {
-                // Così stiamo dicendo che con l'id identifichiamo univocamente l'utente
+                // Così stiamo dicendo che con l ssn identifichiamo univocamente l'utente
                 new Claim(ClaimTypes.NameIdentifier, user.Ssn),
-                new Claim(ClaimTypes.Name, user.FirstName + user.LastName)
+                new Claim(ClaimTypes.Name, user.Username)
             };
 
             // Conviene esternalizzare la chiave segreta
-            var secret = "Super secret very very long long men pikachu";
+            var secret = "Super secret very very long long crowbar";
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
@@ -97,7 +98,11 @@ namespace ProjectWork.Services
                 PasswordSalt = salt,
             };
 
+            //Con il richiamo dei metodi andiamo a calcolare e caricare queste proprietà
             u.Ssn=u.CreateSsn();
+
+            u.CreateUsername(); //Questo è un metodo void che altera lo stato dell'oggetto
+                                //andava bene anche se avesse restituito string
 
             if (UserExists(u.Ssn))
             {

@@ -13,6 +13,7 @@ namespace ProjectWork.Migrations
                 columns: table => new
                 {
                     Ssn = table.Column<string>(type: "varchar(767)", nullable: false),
+                    Username = table.Column<string>(type: "text", nullable: true),
                     FirstName = table.Column<string>(type: "text", nullable: true),
                     LastName = table.Column<string>(type: "text", nullable: true),
                     Dob = table.Column<DateTime>(type: "datetime", nullable: false),

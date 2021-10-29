@@ -29,7 +29,7 @@ namespace ProjectWork.Controllers
             _iService = iService;
         }
 
-        [HttpGet]        
+        [HttpGet("home")]        
         public List<Post> GetAll() 
         {
             return _iService.GetAll();
@@ -41,11 +41,11 @@ namespace ProjectWork.Controllers
             return _iService.SearchById(id);
         }
 
-        /*[HttpGet("{ssn}")]
-         public Post SearchBySsn([FromRoute] string ssn)
-         {
-
-         }    */
+        [HttpGet]
+        public List<Post> GetAllByUsername([FromBody] string username)
+        {
+            return _iService.GetAllByUsername(username);
+        }
 
         [HttpPost]
         public Post Add([FromBody] Post item) 
@@ -59,11 +59,7 @@ namespace ProjectWork.Controllers
             return _iService.Delete(id);
         }
 
-        /* [HttpDelete("{ssn}")]
-         public Post Delete([FromRoute] string ssn) 
-         {
 
-         }*/
 
         [HttpPut]
         public Post Update([FromBody] Post item) 
@@ -71,11 +67,6 @@ namespace ProjectWork.Controllers
             return _iService.UpdateById(item);
         }
 
-        /*    [HttpPut("{ssn}")]
-            public Post Update([FromRoute] string ssn,[FromRoute] Post item) 
-            {
-
-            }    */
 
 
 

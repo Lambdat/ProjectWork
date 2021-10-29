@@ -7,7 +7,8 @@ namespace ProjectWork.DTOs
 {
     public class UserLoginRequest
     {
-        public string Ssn { get; set; }
-        public string Password { get; set; }
+        public string Ssn { get; set; } 
+        public string Username { get; set; } //In alternativa potrò accedere anche con il mio username
+        public string Password { get; set; } 
     }
 }

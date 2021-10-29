@@ -42,7 +42,7 @@ namespace ProjectWork.Controllers
         {
             try
             {
-                return Ok(_service.Login(userLogin.Ssn, userLogin.Password));
+                return Ok(_service.Login(userLogin.Ssn,userLogin.Username, userLogin.Password));
             }
             catch (Exception e)
             {

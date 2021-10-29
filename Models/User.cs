@@ -14,6 +14,8 @@ namespace ProjectWork.Models
         public string Ssn { get; set; }
         //SSN(Codice Fiscale) questa sarà la nostra pk
 
+        public string Username { get; set; } //Lo username sarà composta da nome.cognome#UltimeCifreTelefono
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime Dob { get; set; }
@@ -811,14 +813,21 @@ namespace ProjectWork.Models
                     ris = "Z";
                     break;
 
-
-
-
-
             }
 
             return ris;
         }
+
+
+
+
+        //METODO VOID PER CARICARE LO USERNAME CON Lambda Expression(es. antonio.orefice#56454)
+        public void CreateUsername() => Username=
+            $"{FirstName.ToLower()}.{LastName.ToLower()}#{PhoneNumber.Substring(6)}";
+
+
+
+
 
     }
 

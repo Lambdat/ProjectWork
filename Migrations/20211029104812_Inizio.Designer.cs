@@ -9,7 +9,7 @@ using ProjectWork.Data;
 namespace ProjectWork.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211028181621_Inizio")]
+    [Migration("20211029104812_Inizio")]
     partial class Inizio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,6 +80,9 @@ namespace ProjectWork.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Pob")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Username")
                         .HasColumnType("text");
 
                     b.HasKey("Ssn");

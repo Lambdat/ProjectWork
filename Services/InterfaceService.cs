@@ -11,29 +11,15 @@ namespace ProjectWork.Services
 
         public List<T> GetAll();
 
+        public List<T> GetAllByUsername(string username);
+
         public T SearchById(int id);
         
-
         public T Add(T item);
 
         public T Delete(int id);
 
-        
-
         public T UpdateById(T item);
-
-
-       
-
-
-
-
-
-
-
-
-
-
 
 
     }

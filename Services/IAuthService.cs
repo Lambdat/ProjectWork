@@ -11,7 +11,7 @@ namespace ProjectWork.Services
     {
         bool Register(UserRegistrationRequest request);
 
-        string Login(string ssn, string password);
+        string Login(string ssn,string username, string password);
 
 
     }
