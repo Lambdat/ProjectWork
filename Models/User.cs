@@ -64,35 +64,60 @@ namespace ProjectWork.Models
 
             //AGGIUNTA CONSONANTI COGNOME
 
+            string cognomeSenzaSpazi = LastName;
 
-            if (Consonanti(LastName).Length >= 3)
-                ris += Consonanti(LastName)[0] + "" + Consonanti(LastName)[1] + "" + Consonanti(LastName)[2];
-            else if (Consonanti(LastName).Length == 2)
+            //Con Trim andiamo a rimuovere gli spazi vuoti iniziali e finali
+            // di ciascuna parola del cognome composto
+
+            if (LastName.Split().Length == 2)
             {
-                ris += Consonanti(LastName);
+                cognomeSenzaSpazi = LastName.Split()[0].Trim() +
+                                    LastName.Split()[1].Trim();
 
-                for (int i = 0; i < LastName.Length; i++)
+
+            }
+            else if (LastName.Split().Length == 3)
+            {
+                cognomeSenzaSpazi = LastName.Split()[0].Trim() +
+                                    LastName.Split()[1].Trim() +
+                                    LastName.Split()[2].Trim();
+            }
+            else if (LastName.Split().Length == 4)
+            {
+                cognomeSenzaSpazi = LastName.Split()[0].Trim() +
+                                    LastName.Split()[1].Trim() +
+                                    LastName.Split()[2].Trim() +
+                                    LastName.Split()[3].Trim();
+            }
+
+            if (Consonanti(cognomeSenzaSpazi).Length >= 3)
+                ris += Consonanti(cognomeSenzaSpazi)[0] + "" + Consonanti(cognomeSenzaSpazi)[1] + "" + Consonanti(cognomeSenzaSpazi)[2];
+            else if (Consonanti(cognomeSenzaSpazi).Length == 2)
+            {
+                ris += Consonanti(cognomeSenzaSpazi);
+
+                for (int i = 0; i < cognomeSenzaSpazi.Length; i++)
                 {
-                    if (!Consonante(LastName[i].ToString()))
+                    if (!Consonante(cognomeSenzaSpazi[i].ToString()))
                     {
-                        ris += LastName[i].ToString();
+                        ris += cognomeSenzaSpazi[i].ToString();
                         break;
                     }
                 }
             }
-            else if (Consonanti(LastName).Length == 1)
+            else if (Consonanti(cognomeSenzaSpazi).Length == 1)
             {
-                ris += Consonanti(LastName);
+                ris += Consonanti(cognomeSenzaSpazi);
 
-                for (int i = 0; i < LastName.Length; i++)
+                for (int i = 0; i < cognomeSenzaSpazi.Length; i++)
                 {
                     if (counter > 2)
                         break;
 
 
-                    if (!Consonante(LastName[i].ToString()))
+                    if (!Consonante(cognomeSenzaSpazi[i].ToString()))
                     {
-                        ris += LastName[i].ToString();
+                        ris += cognomeSenzaSpazi[i].ToString();
                         counter++;
                     }
                 }
@@ -104,42 +129,69 @@ namespace ProjectWork.Models
             //resettiamo il nostro contatore per calcoli successivi
             counter = 0;
 
-            if (Consonanti(FirstName).Length >= 4)
+            string nomeSenzaSpazi = FirstName;
+
+            //Con Trim andiamo a rimuovere gli spazi vuoti iniziali e finali
+            // di ciascuna parola del nome composto
+
+            if (FirstName.Split().Length == 2)
             {
-                ris += Consonanti(FirstName)[0] + "" + Consonanti(FirstName)[2] + "" + Consonanti(FirstName)[3];
+                nomeSenzaSpazi = FirstName.Split()[0].Trim() +
+                                 FirstName.Split()[1].Trim();
+
+            }
+            else if (FirstName.Split().Length == 3)
+            {
+                nomeSenzaSpazi = FirstName.Split()[0].Trim() +
+                                 FirstName.Split()[1].Trim() +
+                                 FirstName.Split()[2].Trim();
+            }
+            else if (FirstName.Split().Length == 4)
+            {
+                nomeSenzaSpazi = FirstName.Split()[0].Trim() +
+                                 FirstName.Split()[1].Trim() +
+                                 FirstName.Split()[2].Trim() +
+                                 FirstName.Split()[3].Trim();
+            }
+
+
+
+            if (Consonanti(nomeSenzaSpazi).Length >= 4)
+            {
+                ris += Consonanti(nomeSenzaSpazi)[0] + "" + Consonanti(nomeSenzaSpazi)[2] + "" + Consonanti(nomeSenzaSpazi)[3];
 
             }
 
-            if (Consonanti(FirstName).Length == 3)
+            if (Consonanti(nomeSenzaSpazi).Length == 3)
             {
-                ris += Consonanti(FirstName);
+                ris += Consonanti(nomeSenzaSpazi);
             }
-            else if (Consonanti(FirstName).Length == 2)
+            else if (Consonanti(nomeSenzaSpazi).Length == 2)
             {
-                ris += Consonanti(FirstName);
+                ris += Consonanti(nomeSenzaSpazi);
 
-                for (int i = 0; i < FirstName.Length; i++)
+                for (int i = 0; i < nomeSenzaSpazi.Length; i++)
                 {
-                    if (!Consonante(FirstName[i].ToString()))
+                    if (!Consonante(nomeSenzaSpazi[i].ToString()))
                     {
-                        ris += FirstName[i].ToString();
+                        ris += nomeSenzaSpazi[i].ToString();
                         break;
                     }
                 }
             }
-            else if (Consonanti(FirstName).Length == 1)
+            else if (Consonanti(nomeSenzaSpazi).Length == 1)
             {
-                ris += Consonanti(FirstName);
+                ris += Consonanti(nomeSenzaSpazi);
 
-                for (int i = 0; i < FirstName.Length; i++)
+                for (int i = 0; i < nomeSenzaSpazi.Length; i++)
                 {
                     if (counter > 2)
                         break;
 
 
-                    if (!Consonante(FirstName[i].ToString()))
+                    if (!Consonante(nomeSenzaSpazi[i].ToString()))
                     {
-                        ris += FirstName[i].ToString();
+                        ris += nomeSenzaSpazi[i].ToString();
                         counter++;
                     }
                 }
@@ -244,6 +296,8 @@ namespace ProjectWork.Models
                 case "woman":
                 case "w":
                 case "female":
+                case "ragazza":
+                case "girl":
                     ris += 40;
                     break;
 
