@@ -20,20 +20,13 @@ namespace ProjectWork.Services
 
         //Questo metodo non lo implementiamo per il momento dato che
         //già nell'AuthService avviene la Registrazione/Creazione
-        public User Add(User item)
+        public User Add(string ssn, User item)
         {
-            if (_db.Users.Any(utente => utente.Ssn == item.Ssn))
-                throw new Exception("Questo oggetto già esiste");
-
-            _db.Users.Add(item);
-
-            _db.SaveChanges();
-
-            return item;
+            throw new NotImplementedException();
         }
 
-        //per il postservice
-        public User Delete(int id)
+        //metodo implementato nel PostService
+        public User Delete(string userSsn, int id)
         {
             throw new NotImplementedException();
         }
@@ -55,6 +48,7 @@ namespace ProjectWork.Services
             return _db.Users.ToList();
         }
 
+        //metodo implementato nel PostService
         public List<User> GetAllPersonalPosts(string username)
         {
             throw new NotImplementedException();
@@ -104,8 +98,8 @@ namespace ProjectWork.Services
             return found;
         }
 
-        //Il seguente metodo è per i posts
-        public User Update(User item)
+        //metodo implementato nel PostService
+        public User Update(string userSsn,User item)
         {
             throw new NotImplementedException();
         }

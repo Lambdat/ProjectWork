@@ -14,19 +14,18 @@ namespace ProjectWork.Services
         //Qui di seguito riportiamo le firme dei metodi CRUD e non solo
         public List<T> GetAll();
 
+        public T Search(string ssn);
         public T Search(int id);
 
-        public T Search(string ssn);
-        
-        public T Add(T item);
+        public T Add(string userSsn, T item);
 
-        public T Delete(int id);
         public T Delete(string ssn);
+        public T Delete(string userSsn,int id);
 
-        public T Update(T item);
         public T Update(string ssn,string address,string email,string phoneNumber);
+        public T Update(string userSsn,T item);
         
-        public List<T> GetAllPersonalPosts(string username); //Questo metodo è un po' diverso
+        public List<T> GetAllPersonalPosts(string username);    //Questo metodo è un po' diverso
                                                                //da un tradizionale crud di lettura
 
 

@@ -24,9 +24,12 @@ namespace ProjectWork.Services
 
 
 
-        public Post Add(Post item)
+        public Post Add(string userSsn,Post item)
         {
-            
+            item.UserSsn = userSsn.ToUpper();  //Quando si aggiunge un post, lo si aggiunge al proprio profilo (chiave esterna data dal token di login)
+
+            item.CreatedTime = DateTime.Now; //Impostiamo la data automatica attuale, quando viene creato un nuovo post
+
             var itemAdded = _db.Posts.Add(item);
 
             _db.SaveChanges();
@@ -34,13 +37,20 @@ namespace ProjectWork.Services
             return itemAdded.Entity;
         }
 
-        public Post Delete(int id)
+        public Post Delete(string userSsn,int id)
         {
-            var itemRemoved = _db.Posts.Remove(Search(id));
+
+            var itemToBeRemoved = Search(id);
+
+            if(itemToBeRemoved.UserSsn.ToUpper()==userSsn.ToUpper())
+            {
+                _db.Posts.Remove(Search(id));
+            }
+            
 
             _db.SaveChanges(); //salva le modifiche della tabella
 
-            return itemRemoved.Entity;
+            return itemToBeRemoved;
         }
 
 
@@ -50,24 +60,25 @@ namespace ProjectWork.Services
         {
             var itemFound = _db.Posts.FirstOrDefault(Posts => Posts.Id == id);
 
-            if (itemFound is null)
-            {
-                throw new Exception("Non esiste il post con l'id= "+ id);
-            }
+
             return itemFound;
         }
 
 
-        //PUT
-        public Post Update(Post item)
+       
+        public Post Update(string userSsn,Post item)
         {
 
-            var itemModified = _db.Posts.Update(item);
 
-            _db.SaveChanges();
-
-            return itemModified.Entity;
-        
+            if (item.UserSsn.ToUpper() == userSsn.ToUpper())
+            {
+                var itemModified = _db.Posts.Update(item);
+                _db.SaveChanges();
+                return itemModified.Entity;
+            }
+            else
+                return item;
+       
         }
 
         public List<Post> GetAllPersonalPosts(string username)

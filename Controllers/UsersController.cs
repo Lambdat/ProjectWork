@@ -27,7 +27,7 @@ namespace ProjectWork.Controllers
 
         
 
-        [HttpGet]
+        [HttpGet("friendList")]
         public List<User> GetAll()
         {
            return  _iService.GetAll();
@@ -40,7 +40,7 @@ namespace ProjectWork.Controllers
         }
 
 
-        [HttpDelete]
+        [HttpDelete("deleteAccount")]
         public User Delete()
         {
             string ssn = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value; // Da qui troviamo l'ssn dell'utente loggato attualmente
