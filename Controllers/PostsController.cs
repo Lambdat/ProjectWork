@@ -36,16 +36,16 @@ namespace ProjectWork.Controllers
         }
 
         [HttpGet("{id}")]
-        public Post SearchById([FromRoute] int id)
+        public Post Search([FromRoute] int id)
         {
-            return _iService.SearchById(id);
+            return _iService.Search(id);
         }
 
         [HttpGet]
-        public List<Post> GetAllByUsername()
+        public List<Post> GetAllPosts()
         {
             var username = this.User.Identity.Name; // vogliamo tutti i post relativi al token abbia questo username
-            return _iService.GetAllByUsername(username);
+            return _iService.GetAllPostsByUsername(username);
         }
 
         [HttpPost]
@@ -65,7 +65,7 @@ namespace ProjectWork.Controllers
         [HttpPut]
         public Post Update([FromBody] Post item) 
         {
-            return _iService.UpdateById(item);
+            return _iService.Update(item);
         }
 
 

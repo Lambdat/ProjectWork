@@ -36,7 +36,7 @@ namespace ProjectWork.Services
 
         public Post Delete(int id)
         {
-            var itemRemoved = _db.Posts.Remove(SearchById(id));
+            var itemRemoved = _db.Posts.Remove(Search(id));
 
             _db.SaveChanges(); //salva le modifiche della tabella
 
@@ -46,7 +46,7 @@ namespace ProjectWork.Services
 
 
 
-        public Post SearchById(int id)
+        public Post Search(int id)
         {
             var itemFound = _db.Posts.FirstOrDefault(Posts => Posts.Id == id);
 
@@ -59,7 +59,7 @@ namespace ProjectWork.Services
 
 
         //PUT
-        public Post UpdateById(Post item)
+        public Post Update(Post item)
         {
 
             var itemModified = _db.Posts.Update(item);
@@ -70,7 +70,7 @@ namespace ProjectWork.Services
         
         }
 
-        public List<Post> GetAllByUsername(string username)
+        public List<Post> GetAllPostsByUsername(string username)
         {
             //lo scriviamo sottoforma di Query LINQ
 
@@ -90,14 +90,25 @@ namespace ProjectWork.Services
                 throw new UserNotFoundException();
             }
 
-            var ris2 = _db.Posts.Where(post => post.UserSsn == utenteTrovato.Ssn).ToList();
+            var ris = _db.Posts.Where(post => post.UserSsn == utenteTrovato.Ssn).ToList();
 
 
-            return ris2;
+            return ris;
         }
 
+        public Post Search(string ssn)
+        {
+            throw new NotImplementedException();
+        }
 
+        public Post Delete(string ssn)
+        {
+            throw new NotImplementedException();
+        }
 
-
+        public Post Update(string ssn, string address, string email, string phoneNumber)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
