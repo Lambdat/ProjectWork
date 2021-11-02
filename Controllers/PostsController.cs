@@ -41,11 +41,11 @@ namespace ProjectWork.Controllers
             return _iService.Search(id);
         }
 
-        [HttpGet]
-        public List<Post> GetAllPosts()
+        [HttpGet("myAccount")]
+        public List<Post> GetAllPersonalPosts()
         {
             var username = this.User.Identity.Name; // vogliamo tutti i post relativi al token abbia questo username
-            return _iService.GetAllPostsByUsername(username);
+            return _iService.GetAllPersonalPosts(username);
         }
 
         [HttpPost]

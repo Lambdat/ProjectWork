@@ -70,7 +70,7 @@ namespace ProjectWork.Services
         
         }
 
-        public List<Post> GetAllPostsByUsername(string username)
+        public List<Post> GetAllPersonalPosts(string username)
         {
             //lo scriviamo sottoforma di Query LINQ
 

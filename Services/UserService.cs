@@ -55,7 +55,7 @@ namespace ProjectWork.Services
             return _db.Users.ToList();
         }
 
-        public List<User> GetAllPostsByUsername(string username)
+        public List<User> GetAllPersonalPosts(string username)
         {
             throw new NotImplementedException();
         }

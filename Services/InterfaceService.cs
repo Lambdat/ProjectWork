@@ -26,7 +26,7 @@ namespace ProjectWork.Services
         public T Update(T item);
         public T Update(string ssn,string address,string email,string phoneNumber);
         
-        public List<T> GetAllPostsByUsername(string username); //Questo metodo è un po' diverso
+        public List<T> GetAllPersonalPosts(string username); //Questo metodo è un po' diverso
                                                                //da un tradizionale crud di lettura
 
 
