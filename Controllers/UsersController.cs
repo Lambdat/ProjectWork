@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 using ProjectWork.Data;
 using System.Security.Claims;
 using ProjectWork.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectWork.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
 
@@ -46,13 +48,14 @@ namespace ProjectWork.Controllers
         
         }
 
-        /*
+        
         [HttpPut]
-        public User Update([FromBody] string phoneNumber, [FromBody] string email, [FromBody] string address)
+        public User Update([FromBody] string phoneNumber,string email,string address)
         {
             string ssn = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value; // Da qui troviamo l'ssn dell'utente loggato attualmente
+            return _iService.Update(ssn, address, email, phoneNumber);
         }
-        */
+        
 
 
 

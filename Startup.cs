@@ -52,9 +52,11 @@ namespace ProjectWork
             //Aggiuniamo con Pattern Dependency Injection le istanze Scoped<singleton>
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<InterfaceService<Post>, PostService>();
+            services.AddScoped<InterfaceService<User>, UserService>();
 
             services.AddCors();
 
+            //Token
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
                     {

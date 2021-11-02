@@ -18,10 +18,6 @@ namespace ProjectWork.Services
         }
 
 
-
-
-
-
         //Questo metodo non lo implementiamo per il momento dato che
         //già nell'AuthService avviene la Registrazione/Creazione
         public User Add(User item)
@@ -36,7 +32,7 @@ namespace ProjectWork.Services
             return item;
         }
 
-
+        //per il postservice
         public User Delete(int id)
         {
             throw new NotImplementedException();
@@ -84,40 +80,36 @@ namespace ProjectWork.Services
 
         //Modifica dei dati che possono subire variazioni come Email, Indizzo Residenza
         // e numero di telefono
-
-        public User Update(string phoneNumber,string email,string address)
+        public User Update(string ssn,string phoneNumber,string email,string address)
         {
-            //item.Ssn = item.CreateSsn();
 
-            //bool trovato = _db.Users.Any(utente => utente.Ssn == item.Ssn.ToUpper());
+            var found = Search(ssn);
 
-            /*
-            var elementoDaModificare = _db.Users.Update(item);
-
-
-            if (string.IsNullOrEmpty(phoneNumber) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(address))
-
-            if (!trovato)
+            if (!string.IsNullOrEmpty(phoneNumber))
             {
-                throw new UserNotFoundException();
+                found.PhoneNumber = phoneNumber;
+                found.CreateUsername();
             }
 
-            _db.Users.Update(item);
+            if (!string.IsNullOrEmpty(email))
+                found.Email = email;
+
+            if (!string.IsNullOrEmpty(address))
+                found.Address = address;
+
+            _db.Users.Update(found);
 
             _db.SaveChanges();
-            */
-            throw new NotImplementedException();
 
+            return found;
         }
 
+        //Il seguente metodo è per i posts
         public User Update(User item)
         {
             throw new NotImplementedException();
         }
 
-        public User Update(string ssn, string address, string email, string phoneNumber)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
