@@ -13,6 +13,7 @@ namespace ProjectWork.Models
         public string Text { get; set; }
         public string ImageUrl { get; set; }
         public DateTime CreatedTime { get; set; }
+        public DateTime LastUpdateTime { get; set; }
 
         //Il seguente campo E' la chiave esterna.
         //Ci indica l'autore del post

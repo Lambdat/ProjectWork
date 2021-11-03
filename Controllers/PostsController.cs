@@ -74,7 +74,12 @@ namespace ProjectWork.Controllers
         public Post Update([FromBody] Post item,string userSsn)
         {
             userSsn = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-            return _iService.Update(userSsn, item);
+            if (userSsn.ToUpper() == item.UserSsn.ToUpper())
+            {
+                return _iService.Update(userSsn, item);
+            }
+            else
+                return item;
         }
 
 
