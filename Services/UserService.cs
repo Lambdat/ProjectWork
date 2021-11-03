@@ -1,4 +1,5 @@
-﻿using ProjectWork.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjectWork.Data;
 using ProjectWork.Models;
 using System;
 using System.Collections.Generic;
@@ -75,7 +76,8 @@ namespace ProjectWork.Services
 
         public List<User> SearchUsers(string firstName, string lastName)
         {
-            return _db.Users.Where(user => user.FirstName.ToLower().Contains(firstName.ToLower())).Where(user => user.LastName.ToLower().Contains(lastName.ToLower())).ToList();
+                         // .Include() innerjoin in Entity Framework
+            return _db.Users.Include(user=>user.Posts).Where(user => user.FirstName.ToLower().Contains(firstName.ToLower())).Where(user => user.LastName.ToLower().Contains(lastName.ToLower())).ToList();
         }
 
         //Modifica dei dati che possono subire variazioni come Email, Indizzo Residenza
