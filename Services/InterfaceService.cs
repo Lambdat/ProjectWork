@@ -14,7 +14,7 @@ namespace ProjectWork.Services
         //Qui di seguito riportiamo le firme dei metodi CRUD e non solo
         public List<T> GetAll();
 
-        public T Search(string ssn);
+        public List<T> SearchUsers(string firstName,string lastName);
         public T Search(int id);
 
         public T Add(string userSsn, T item);

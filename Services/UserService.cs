@@ -60,6 +60,7 @@ namespace ProjectWork.Services
             throw new NotImplementedException();
         }
 
+        //Metodo di Appoggio per Cercare uno Specifico Utente
         public User Search(string ssn)
         {
             User trovato = _db.Users.FirstOrDefault(utente => utente.Ssn == ssn.ToUpper());
@@ -70,6 +71,11 @@ namespace ProjectWork.Services
             }
 
             return trovato;
+        }
+
+        public List<User> SearchUsers(string firstName, string lastName)
+        {
+            return _db.Users.Where(user => user.FirstName.ToLower().Contains(firstName.ToLower())).Where(user => user.LastName.ToLower().Contains(lastName.ToLower())).ToList();
         }
 
         //Modifica dei dati che possono subire variazioni come Email, Indizzo Residenza

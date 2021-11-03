@@ -102,17 +102,19 @@ namespace ProjectWork.Services
             return ris;
         }
 
-        public Post Search(string ssn)
-        {
-            throw new NotImplementedException();
-        }
-
+        //Metodo di UserService
         public Post Delete(string ssn)
         {
             throw new NotImplementedException();
         }
-
+        //Metodo di UserService
         public Post Update(string ssn, string address, string email, string phoneNumber)
+        {
+            throw new NotImplementedException();
+        }
+
+        //Metodo di UserService
+        public List<Post> SearchUsers(string firstName, string lastName)
         {
             throw new NotImplementedException();
         }

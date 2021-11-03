@@ -34,9 +34,12 @@ namespace ProjectWork.Controllers
         }
 
         [HttpGet("search")]
-        public User Search([FromBody]string ssn) 
+        public List<User> SearchUsers([FromQuery] Dictionary<string,string> parametri) 
         {
-            return _iService.Search(ssn);
+            string firstName = parametri["firstname"];
+            string lastName = parametri["lastname"];
+
+            return _iService.SearchUsers(firstName, lastName);
         }
 
 
