@@ -49,11 +49,18 @@ namespace ProjectWork.Controllers
         }
 
         
-        [HttpPut]
-        public User Update([FromBody] string phoneNumber,string email,string address)
+        [HttpPut("settings")]
+        public User Update([FromBody] Dictionary<string,string> impostazioni) //Dalla chiamata put/post ci arriva un Dictionary<string,string> ({chiave:valore})
         {
             string ssn = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value; // Da qui troviamo l'ssn dell'utente loggato attualmente
-            return _iService.Update(ssn, address, email, phoneNumber);
+
+            string phoneNumber = impostazioni["phoneNumber"];
+
+            string email = impostazioni["email"];
+
+            string address = impostazioni["address"];
+
+            return _iService.Update(ssn, phoneNumber, email, address);   //mantenere sempre lo stesso ordine dei parametri
         }
         
 
