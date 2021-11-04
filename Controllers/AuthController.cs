@@ -28,7 +28,7 @@ namespace ProjectWork.Controllers
         //2) Accesso avente nella Route il percorso "login"
 
         [HttpPost("signup")]
-        public IActionResult Registration([FromBody] UserRegistrationRequest request)
+        public IActionResult Registration([FromBody] UserRegistration request)
         {
             if (_service.Register(request))
             {
@@ -38,11 +38,11 @@ namespace ProjectWork.Controllers
         }
 
         [HttpPost("login")]
-        public ActionResult<string> Login([FromBody] UserLoginRequest userLogin)
+        public ActionResult<string> Login([FromBody]UserLogin userLogin)
         {
             try
             {
-                return Ok(_service.Login(userLogin.Ssn,userLogin.Username, userLogin.Password));
+                return Ok(_service.Login(userLogin));
             }
             catch (Exception e)
             {

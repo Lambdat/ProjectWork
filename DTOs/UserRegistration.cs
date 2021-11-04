@@ -14,7 +14,7 @@ namespace ProjectWork.DTOs
     //all'interno sono presenti quasi tutte le proprietà della classe User
     //eccetto la password che non sarà più di tipo byte[]
     //bensì sarà proprio la password stringa che inserisce
-    public class UserRegistrationRequest
+    public class UserRegistration
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

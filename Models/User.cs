@@ -13,9 +13,7 @@ namespace ProjectWork.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]    //Come Proprietà rappresentante la Chiave Primaria necessitiamo per forza di un Id nel nome, bensì useremo Ssn (Codice Fiscale)
         public string Ssn { get; set; }
         //SSN(Codice Fiscale) questa sarà la nostra pk
-
         public string Username { get; set; } //Lo username sarà composta da nome.cognome#UltimeCifreTelefono
-
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime Dob { get; set; }

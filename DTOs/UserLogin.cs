@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ProjectWork.DTOs
 {
-    public class UserLoginRequest
+    public class UserLogin
     {
         public string Ssn { get; set; } 
         public string Username { get; set; } //In alternativa potrò accedere anche con il mio username

@@ -90,8 +90,6 @@ namespace ProjectWork
 
             app.UseRouting();
 
-            app.UseAuthentication();
-
             app.UseAuthorization();
 
             //Abilitiamo Cors 

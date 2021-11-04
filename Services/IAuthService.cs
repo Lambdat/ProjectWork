@@ -9,9 +9,9 @@ namespace ProjectWork.Services
 {
     public interface IAuthService
     {
-        bool Register(UserRegistrationRequest request);
+        bool Register(UserRegistration request);
 
-        string Login(string ssn,string username, string password);
+        string Login(UserLogin userLogin);
 
 
     }
