@@ -25,6 +25,7 @@ namespace ProjectWork.Controllers
             _iService = iService;
         }
 
+        //Con questa chiamata Get andiamo a restituire il nome e il cognome dell'utente connesso
         [HttpGet("whoAmI")]
         public Dictionary<string,string> WhoAmI()
         {
