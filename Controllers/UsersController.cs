@@ -6,25 +6,72 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ProjectWork.Data;
-
+using System.Security.Claims;
+using ProjectWork.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectWork.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
-        public DataContext _ctx { get; set; }
 
-        public UsersController(DataContext ctx)
+        private readonly InterfaceService<User> _iService;
+
+        public UsersController(InterfaceService<User> iService)
         {
-            _ctx = ctx;
+            _iService = iService;
         }
 
-        [HttpGet]
-        public List<User> GottaCacthEmAll()
+        
+
+        [HttpGet("friendList")]
+        public List<User> GetAll()
         {
-           return  _ctx.Users.ToList();
+           return  _iService.GetAll();
         }
+
+        [HttpGet("search")]
+        public List<User> SearchUsers([FromQuery] Dictionary<string,string> parametri) 
+        {
+            string firstName = parametri["firstname"];
+            string lastName = parametri["lastname"];
+
+            return _iService.SearchUsers(firstName, lastName);
+        }
+
+
+        [HttpDelete("deleteAccount")]
+        public User Delete()
+        {
+            string ssn = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value; // Da qui troviamo l'ssn dell'utente loggato attualmente
+            return _iService.Delete(ssn);
+        
+        }
+
+        
+        [HttpPut("settings")]
+        public User Update([FromBody] Dictionary<string,string> impostazioni) //Dalla chiamata put/post ci arriva un Dictionary<string,string> ({chiave:valore})
+        {
+            string ssn = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value; // Da qui troviamo l'ssn dell'utente loggato attualmente
+
+            string phoneNumber = impostazioni["phoneNumber"];
+
+            string email = impostazioni["email"];
+
+            string address = impostazioni["address"];
+
+            return _iService.Update(ssn, phoneNumber, email, address);   //mantenere sempre lo stesso ordine dei parametri
+        }
+        
+
+
+
+
+
+
+
     }
 }

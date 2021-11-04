@@ -40,6 +40,7 @@ namespace ProjectWork.Migrations
                     Text = table.Column<string>(type: "text", nullable: true),
                     ImageUrl = table.Column<string>(type: "text", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "datetime", nullable: false),
+                    LastUpdateTime = table.Column<DateTime>(type: "datetime", nullable: false),
                     UserSsn = table.Column<string>(type: "varchar(767)", nullable: true)
                 },
                 constraints: table =>

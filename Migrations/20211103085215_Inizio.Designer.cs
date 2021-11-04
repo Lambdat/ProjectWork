@@ -9,7 +9,7 @@ using ProjectWork.Data;
 namespace ProjectWork.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211029104812_Inizio")]
+    [Migration("20211103085215_Inizio")]
     partial class Inizio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,6 +30,9 @@ namespace ProjectWork.Migrations
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("LastUpdateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Text")
                         .HasColumnType("text");

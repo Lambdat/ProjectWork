@@ -29,6 +29,9 @@ namespace ProjectWork.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("LastUpdateTime")
+                        .HasColumnType("datetime");
+
                     b.Property<string>("Text")
                         .HasColumnType("text");
 

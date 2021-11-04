@@ -1,14 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ProjectWork.Data;
+﻿using ProjectWork.Data;
 using ProjectWork.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ProjectWork.Services
 {
-    public class PostService: InterfaceService<Post>
+    public class PostService : InterfaceService<Post>
     {
         private readonly DataContext _db;
         public PostService(DataContext db)
@@ -24,9 +22,12 @@ namespace ProjectWork.Services
 
 
 
-        public Post Add(Post item)
+        public Post Add(string userSsn, Post item)
         {
-            
+            item.UserSsn = userSsn.ToUpper();  //Quando si aggiunge un post, lo si aggiunge al proprio profilo (chiave esterna data dal token di login)
+
+            item.CreatedTime = DateTime.Now; //Impostiamo la data automatica attuale, quando viene creato un nuovo post
+
             var itemAdded = _db.Posts.Add(item);
 
             _db.SaveChanges();
@@ -34,43 +35,48 @@ namespace ProjectWork.Services
             return itemAdded.Entity;
         }
 
-        public Post Delete(int id)
+        public Post Delete(string userSsn, int id)
         {
-            var itemRemoved = _db.Posts.Remove(SearchById(id));
+
+            var itemToBeRemoved = Search(id);
+
+            if (itemToBeRemoved.UserSsn.ToUpper() == userSsn.ToUpper())
+            {
+                _db.Posts.Remove(Search(id));
+            }
+
 
             _db.SaveChanges(); //salva le modifiche della tabella
 
-            return itemRemoved.Entity;
+            return itemToBeRemoved;
         }
 
 
 
 
-        public Post SearchById(int id)
+        public Post Search(int id)
         {
             var itemFound = _db.Posts.FirstOrDefault(Posts => Posts.Id == id);
 
-            if (itemFound is null)
-            {
-                throw new Exception("Non esiste il post con l'id= "+ id);
-            }
+
             return itemFound;
         }
 
 
-        //PUT
-        public Post UpdateById(Post item)
+
+        public Post Update(string userSsn, Post item)
         {
+                
+                item.UserSsn = userSsn.ToUpper();
+                item.LastUpdateTime = DateTime.Now;
+                var itemModified = _db.Posts.Update(item);
+                _db.SaveChanges();
 
-            var itemModified = _db.Posts.Update(item);
+                return itemModified.Entity;
 
-            _db.SaveChanges();
-
-            return itemModified.Entity;
-        
         }
 
-        public List<Post> GetAllByUsername(string username)
+        public List<Post> GetAllPersonalPosts(string username)
         {
             //lo scriviamo sottoforma di Query LINQ
 
@@ -85,19 +91,32 @@ namespace ProjectWork.Services
             //Metodo altenativo con Entity Framework
             var utenteTrovato = _db.Users.FirstOrDefault(utente => utente.Username == username.ToLower());
 
-            if(utenteTrovato is null)
+            if (utenteTrovato is null)
             {
                 throw new UserNotFoundException();
             }
 
-            var ris2 = _db.Posts.Where(post => post.UserSsn == utenteTrovato.Ssn).ToList();
+            var ris = _db.Posts.Where(post => post.UserSsn == utenteTrovato.Ssn).ToList();
 
 
-            return ris2;
+            return ris;
         }
 
+        //Metodo di UserService
+        public Post Delete(string ssn)
+        {
+            throw new NotImplementedException();
+        }
+        //Metodo di UserService
+        public Post Update(string ssn, string address, string email, string phoneNumber)
+        {
+            throw new NotImplementedException();
+        }
 
-
-
+        //Metodo di UserService
+        public List<Post> SearchUsers(string firstName, string lastName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
