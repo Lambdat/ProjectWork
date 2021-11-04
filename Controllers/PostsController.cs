@@ -68,8 +68,6 @@ namespace ProjectWork.Controllers
             return _iService.Delete(userSsn, id);
         }
 
-
-
         [HttpPut]
         public Post Update([FromBody] Post item,string userSsn)
         {

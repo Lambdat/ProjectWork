@@ -11,13 +11,9 @@ namespace ProjectWork.Services
     //coinvolti implementeranno
     public interface IAuthService //Questa interfaccia è stata realizzata solo ed esclusivamente per gli Utenti (es. gli utenti non vengono gestiti dai CRUD)
     {
-        //Questa interfaccia fungerà da contratto, che i vari services
-        //coinvolti implementeranno
+        bool Register(UserRegistration request);
 
-
-        bool Register(UserRegistrationRequest request);
-
-        string Login(string ssn,string username, string password);
+        string Login(UserLogin userLogin);
 
 
     }

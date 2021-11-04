@@ -23,17 +23,16 @@ namespace ProjectWork.Services
         }
 
         //Metodo per effettuare l'accesso sia Ssn sia o Username
-        public string Login(string ssn, string username, string password)
+        public string Login(UserLogin userLogin)
         {
-            var user = _db.Users.FirstOrDefault(user => user.Ssn == ssn.ToUpper() || user.Username==username.ToLower());
-
+            var user = _db.Users.FirstOrDefault(user => user.Ssn == userLogin.Ssn.ToUpper() || user.Username == userLogin.Username.ToLower());
 
             if (user is null)
             {
                 throw new UserNotFoundException();
             }
 
-            if (VerifyPassword(password, user.HashedPassword, user.PasswordSalt))
+            if (VerifyPassword(userLogin.Password, user.HashedPassword, user.PasswordSalt))
             {
                 // Restituire un token
                 return CreateToken(user);
@@ -81,7 +80,7 @@ namespace ProjectWork.Services
         }
 
         //Metodo per effettuare Registrazione di un nuovo Utente
-        public bool Register(UserRegistrationRequest request)
+        public bool Register(UserRegistration request)
         {
             var (hash, salt) = HashPassword(request.Password);
 
