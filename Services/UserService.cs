@@ -112,6 +112,16 @@ namespace ProjectWork.Services
             throw new NotImplementedException();
         }
 
+        public Dictionary<string, string> WhoAmI(string ssn)
+        {
+            
 
+            var found =_db.Users.Where(user => user.Ssn.ToUpper() == ssn.ToUpper()).Select(user=> new Dictionary<string,string>{ { "firstName",user.FirstName},{"lastName",user.LastName } } );
+
+            return found.FirstOrDefault();
+          
+
+
+        }
     }
 }

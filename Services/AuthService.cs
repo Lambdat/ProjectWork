@@ -53,7 +53,7 @@ namespace ProjectWork.Services
                 new Claim(ClaimTypes.Name, user.Username)
             };
 
-            // Conviene esternalizzare la chiave segreta
+            // Conviene esternalizzare la chiave segreta in modo che si possa modificare semplicemente
             var secret = "Super secret very very long long crowbar";
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);

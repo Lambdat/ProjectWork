@@ -25,7 +25,13 @@ namespace ProjectWork.Controllers
             _iService = iService;
         }
 
-        
+        [HttpGet("whoAmI")]
+        public Dictionary<string,string> WhoAmI()
+        {
+            string ssn = this.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            return _iService.WhoAmI(ssn);
+        }
+
 
         [HttpGet("friendList")]
         public List<User> GetAll()

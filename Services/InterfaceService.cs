@@ -26,7 +26,9 @@ namespace ProjectWork.Services
         public T Update(string userSsn,T item);
         
         public List<T> GetAllPersonalPosts(string username);    //Questo metodo è un po' diverso
-                                                               //da un tradizionale crud di lettura
+                                                                //da un tradizionale crud di lettura
+
+        public Dictionary<string, string> WhoAmI(string ssn);  //Questo metodo restituisce nome e cognome dell'utente connesso
 
 
     }

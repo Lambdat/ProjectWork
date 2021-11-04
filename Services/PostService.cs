@@ -118,5 +118,10 @@ namespace ProjectWork.Services
         {
             throw new NotImplementedException();
         }
+
+        public Dictionary<string, string> WhoAmI(string ssn)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
