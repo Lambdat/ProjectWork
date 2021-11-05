@@ -4,7 +4,6 @@ using ProjectWork.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ProjectWork.Services
 {
@@ -62,7 +61,7 @@ namespace ProjectWork.Services
         {
             User trovato = _db.Users.FirstOrDefault(utente => utente.Ssn == ssn.ToUpper());
 
-            if(trovato is null)
+            if (trovato is null)
             {
                 throw new UserNotFoundException();
             }
@@ -72,13 +71,13 @@ namespace ProjectWork.Services
 
         public List<User> SearchUsers(string firstName, string lastName)
         {
-                         // .Include() innerjoin in Entity Framework
-            return _db.Users.Include(user=>user.Posts).Where(user => user.FirstName.ToLower().Contains(firstName.ToLower())).Where(user => user.LastName.ToLower().Contains(lastName.ToLower())).ToList();
+            // .Include() innerjoin in Entity Framework
+            return _db.Users.Include(user => user.Posts).Where(user => user.FirstName.ToLower().Contains(firstName.ToLower())).Where(user => user.LastName.ToLower().Contains(lastName.ToLower())).ToList();
         }
 
         //Modifica dei dati che possono subire variazioni come Email, Indizzo Residenza
         // e numero di telefono
-        public User Update(string ssn,string phoneNumber,string email,string address)
+        public User Update(string ssn, string phoneNumber, string email, string address)
         {
 
             var found = Search(ssn);
@@ -103,11 +102,25 @@ namespace ProjectWork.Services
         }
 
         //metodo implementato nel PostService
-        public User Update(string userSsn,User item)
+        public User Update(string userSsn, User item)
         {
             throw new NotImplementedException();
         }
 
+        //Con questo metodo andiamo a restituire il nome e il cognome dell'utente connesso
+        public Dictionary<string, string> WhoAmI(string ssn)
+        {
 
+
+            var found = _db.Users.Where(user => user.Ssn.ToUpper() == ssn.ToUpper()).Select(user => new Dictionary<string, string>{
+                                                                                                                                   { "firstName",user.FirstName},
+                                                                                                                                   { "lastName",user.LastName }
+                                                                                                                                  });
+
+            return found.FirstOrDefault();
+
+
+
+        }
     }
 }
