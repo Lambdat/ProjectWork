@@ -15,7 +15,7 @@ namespace ProjectWork.Services
         public List<T> GetAll();
 
         public List<T> SearchUsers(string firstName,string lastName);
-        public T Search(int id);
+        public T Search(string ssn);
 
         public T Add(string userSsn, T item);
 

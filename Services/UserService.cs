@@ -56,10 +56,6 @@ namespace ProjectWork.Services
         }
 
         //Questo metodo non lo implemetiamo dato che lo User ha l ssn non l'id
-        public User Search(int id)
-        {
-            throw new NotImplementedException();
-        }
 
         //Metodo di Appoggio per Cercare uno Specifico Utente
         public User Search(string ssn)

@@ -33,13 +33,10 @@ namespace ProjectWork.Controllers
            return  _iService.GetAll();
         }
 
-        [HttpGet("search")]
-        public List<User> SearchUsers([FromQuery] Dictionary<string,string> parametri) 
+        [HttpGet("search/{ssn}")]
+        public User SearchUsers([FromRoute] string ssn) 
         {
-            string firstName = parametri["firstname"];
-            string lastName = parametri["lastname"];
-
-            return _iService.SearchUsers(firstName, lastName);
+            return _iService.Search(ssn);
         }
 
 
